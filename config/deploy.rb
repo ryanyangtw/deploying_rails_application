@@ -86,6 +86,10 @@ set(:symlinks, [
   {
     source: "log_rotation",
    link: "/etc/logrotate.d/{{full_app_name}}"
+  },
+  {
+    source: "monit",
+    link: "/etc/monit/conf.d/{{full_app_name}}.conf"
   }
 ])
 
@@ -98,7 +102,7 @@ namespace :deploy do
   # make sure we're deploying what we think we're deploying
   before :deploy, "deploy:check_revision"
   # only allow a deploy with passing tests to deployed
-  before :deploy, "deploy:run_tests"
+  #before :deploy, "deploy:run_tests"
   # compile assets locally then rsync
   #after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
   after :finishing, 'deploy:cleanup'
@@ -113,12 +117,13 @@ namespace :deploy do
 
   # Restart monit so it will pick up any monit configurations
   # we've added
-  #after 'deploy:setup_config', 'monit:restart'
+  after 'deploy:setup_config', 'monit:restart'
 
   # As of Capistrano 3.1, the `deploy:restart` task is not called
   # automatically.
   after 'deploy:publishing', 'deploy:restart'
 end
+
 
 
 #namespace :deploy do

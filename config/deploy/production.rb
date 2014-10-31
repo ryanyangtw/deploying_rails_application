@@ -8,7 +8,7 @@
 set :stage, :production
 set :branch, "master"
 
-set :server_name, "www.example.com example.com"
+set :server_name, "www.106.185.45.206 106.185.45.206"
 
 set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
 
