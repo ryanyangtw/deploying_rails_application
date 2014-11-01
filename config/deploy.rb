@@ -6,6 +6,10 @@ set :branch, 'master'
 
 set :scm, :git
 set :repo_url, 'git@github.com:ryanyangtw/deploying_rails_application.git'
+#let remote server use local private ssh key to fetch repo on github
+set :ssh_options, {
+  forward_agent: true
+}
 
 set :rbenv_type, :system
 set :rbenv_ruby, '2.1.2'
